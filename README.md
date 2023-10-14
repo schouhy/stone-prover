@@ -14,7 +14,7 @@ underlying the CairoZero programming language.
 The root directory contains a dedicated Dockerfile which automatically compiles everything.
 You should have docker installed (see https://docs.docker.com/get-docker/).
 
-Clone the repository:
+Clone the fork:
 
 ```bash
 git clone https://github.com/schouhy/stone-prover.git
@@ -30,12 +30,12 @@ docker build --tag stone-prover-test-cases .
 This will compile stone prover and add a few test cases for the Fibonacci AIR.
 Once the docker image is built, you can run the test cases.
 
-Test case 1:
+Test case 1 (output [here](fibonacci_air_test_cases/case_1_output.txt)):
 ```bash
 docker run --rm stone-prover-test-cases ./case_1
 ```
 
-Test case 2:
+Test case 2 (output [here](fibonacci_air_test_cases/case_2_output.txt)):
 ```bash
 docker run --rm stone-prover-test-cases ./case_2
 ```
