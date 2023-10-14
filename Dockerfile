@@ -5,7 +5,11 @@ RUN /app/install_deps.sh
 
 COPY CMakeLists.txt /app/
 COPY src /app/src
-COPY fibonacci_air_test_cases /app/fibonacci_air_test_cases
+
+# Delay copying actual test cases to leverage docker build cache and avoid
+# recompiling the whole library when adding or modifying test cases
+RUN mkdir -p /app/fibonacci_air_test_cases
+RUN touch /app/fibonacci_air_test_cases/CMakeLists.txt
 
 RUN mkdir -p /app/build/Release
 
@@ -18,6 +22,11 @@ RUN cmake ../.. -DCMAKE_BUILD_TYPE=Release ${CMAKE_ARGS}
 RUN make -j8
 
 RUN ctest -V
+
+# Copy test cases. Rebuild.
+COPY fibonacci_air_test_cases /app/fibonacci_air_test_cases
+RUN cmake ../.. -DCMAKE_BUILD_TYPE=Release ${CMAKE_ARGS}
+RUN make -j8
 
 WORKDIR /app/build/Release/fibonacci_air_test_cases
 
