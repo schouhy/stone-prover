@@ -32,10 +32,10 @@ Once the docker image is built, you can run the test cases.
 
 Test case 1:
 ```bash
-docker run --rm stone-prover-test-cases
+docker run --rm stone-prover-test-cases ./case_1
 ```
 
 Test case 2:
 ```bash
-docker run --rm stone-prover ./src/starkware/main/cpu/fibonacci_air_prove_verify_2
+docker run --rm stone-prover-test-cases ./case_2
 ```

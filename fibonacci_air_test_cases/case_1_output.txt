@@ -1,0 +1,60 @@
+P->V[0:32]: /STARK/Original/Commit on Trace: Commitment: Hash(0xeb9dcc0fb1854572a01236753ce05139d392aa3aeafe72abff150fe21175594)
+
+V->P: /STARK/Original: Constraint polynomial random element: Field Element(0x86105fff7b04ed4068ecccb8dbf1ed223bd45cd26c3532d6c80a818dbd4fa7)
+
+P->V[32:64]: /STARK/Out Of Domain Sampling/Commit on Trace: Commitment: Hash(0x7cdd8d5fe3bd62254a417e2e260e0fed4fccdb6c9005e828446f645879394f38)
+
+V->P: /STARK/Out Of Domain Sampling/OODS values: Evaluation point: Field Element(0x317629e783794b52cd27ac3a5e418c057fec9dd42f2b537cdb3f24c95b3e550)
+
+P->V[64:96]: /STARK/Out Of Domain Sampling/OODS values: 0: Field Element(0x70d8181785336cc7e0a0a1078a79ee6541ca0803ed3ff716de5a13c41684037)
+
+P->V[96:128]: /STARK/Out Of Domain Sampling/OODS values: 1: Field Element(0x29808fc8b7480a69295e4b61600480ae574ca55f8d118100940501b789c1630)
+
+P->V[128:160]: /STARK/Out Of Domain Sampling/OODS values: 2: Field Element(0x7d8110f21d1543324cc5e472ab82037eaad785707f8cae3d64c5b9034f0abd2)
+
+P->V[160:192]: /STARK/Out Of Domain Sampling/OODS values: 3: Field Element(0x1b58470130218c122f71399bf1e04cf75a6e8556c4751629d5ce8c02cc4e62d)
+
+P->V[192:224]: /STARK/Out Of Domain Sampling/OODS values: 4: Field Element(0x1c0b7c2275e36d62dfb48c791be122169dcc00c616c63f8efb2c2a504687e85)
+
+V->P: /STARK/Out Of Domain Sampling: Constraint polynomial random element: Field Element(0xa0c79c1c77ded19520873d9c2440451974d23302e451d13e8124cf82fc15dd)
+
+V->P: /STARK/FRI/Commitment/Layer 1: Evaluation point: Field Element(0x5c6b5a66c9fda19f583f0b10edbaade98d0e458288e62c2fa40e3da2b293cef)
+
+P->V[224:256]: /STARK/FRI/Commitment/Layer 1: Commitment: Hash(0x327d47da86f5961ee012b2b0e412de16023ffba97c82bfe85102f00daabd49fb)
+
+V->P: /STARK/FRI/Commitment/Layer 2: Evaluation point: Field Element(0x13c337c9dc727bea9eef1f82cab86739f17acdcef562f9e5151708f12891295)
+
+P->V[256:288]: /STARK/FRI/Commitment/Last Layer: Coefficients: Field Elements(0x43fedf9f9e3d1469309862065c7d7ca0e7e9ce451906e9c01553056f695aec9)
+
+V->P: /STARK/FRI/QueryIndices: 0: Number(1)
+
+P->V[288:320]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: Row 2, Column 0: Field Element(0x4de0d56f9cf97dff326c26592fbd4ae9ee756080b12c51cfe4864e9b8734f43)
+
+P->V[320:352]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: Row 2, Column 1: Field Element(0x1bc1aadf39f2faee64d84cb25f7a95d3dceac1016258a39fc90c9d370e69e8e)
+
+P->V[352:384]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: Row 3, Column 0: Field Element(0x321f2a9063068310cd93d9a6d042b516118a9f7f4ed3ae301b79b16478cb0c6)
+
+P->V[384:416]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: Row 3, Column 1: Field Element(0x643e5520c60d06219b27b34da0856a2c23153efe9da75c6036f362c8f196186)
+
+P->V[416:448]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: For node 8: Hash(0x91b0c0b24b9d00067b0efab50832b76cf97192091624d42b86740666c5d369e6)
+
+P->V[448:480]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: For node 5: Hash(0x993b044db22444c0c0ebf1095b9a51faeb001c9b4dea36abe905f7162620dbbd)
+
+P->V[480:512]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 0: For node 3: Hash(0x5017abeca33fa82576b5c5c2c61792693b48c9d4414a407eef66b6029dae07ea)
+
+P->V[512:544]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 1: Row 2, Column 0: Field Element(0x2b54852557db698e97253e9d110d60e9bf09f1d358b4c1a96f9f3cf9d2e8755)
+
+P->V[544:576]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 1: Row 3, Column 0: Field Element(0x190f1b0acb7858bd3f5285b68befcf32b436a5f1e3a280e1f42565c1f35c2c3)
+
+P->V[576:608]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 1: For node 8: Hash(0x403b75a122eaf90a298e5d3db2cc7ca096db478078122379a6e3616e72da7546)
+
+P->V[608:640]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 1: For node 5: Hash(0x7950888c0355c204a1e83ecbee77a0a6a89f93d41cc2be6b39ddd1e727cc965)
+
+P->V[640:672]: /STARK/FRI/Decommitment/Layer 0/Virtual Oracle/Trace 1: For node 3: Hash(0x58befe2c5de74cc5a002aa82ea219c5b242e761b45fd266eb95521e9f53f44eb)
+
+P->V[672:704]: /STARK/FRI/Decommitment/Layer 1: Row 0, Column 0: Field Element(0x684991e76e5c08db17f33ea7840596be876d92c143f863e77cad10548289fd0)
+
+P->V[704:736]: /STARK/FRI/Decommitment/Layer 1: For node 5: Hash(0x683622478e9e93cc2d18754872f043619f030b494d7ec8e003b1cbafe83b67b)
+
+P->V[736:768]: /STARK/FRI/Decommitment/Layer 1: For node 3: Hash(0x7985d945abe659a7502698051ec739508ed6bab594984c7f25e095a0a57a2e55)
+
