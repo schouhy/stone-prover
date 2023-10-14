@@ -11,121 +11,31 @@ underlying the CairoZero programming language.
 
 ## Building using the dockerfile
 
-The root directory contains a dedicated Dockerfile which automatically builds the package and
-runs the unit tests on a simulated machine.
+The root directory contains a dedicated Dockerfile which automatically compiles everything.
 You should have docker installed (see https://docs.docker.com/get-docker/).
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/starkware-libs/stone-prover.git
+git clone https://github.com/schouhy/stone-prover.git
 ```
 
 Build the docker image:
 
 ```bash
 cd stone-prover
-docker build --tag prover .
+docker build --tag stone-prover-test-cases .
 ```
 
-This will run an end-to-end test with an example cairo program.
-Once the docker image is built, you can fetch the prover and verifier executables using:
+This will compile stone prover and add a few test cases for the Fibonacci AIR.
+Once the docker image is built, you can run the test cases.
 
+Test case 1:
 ```bash
-container_id=$(docker create prover)
-docker cp -L ${container_id}:/bin/cpu_air_prover .
-docker cp -L ${container_id}:/bin/cpu_air_verifier .
+docker run --rm stone-prover-test-cases
 ```
 
-## Creating and verifying a proof of a CairoZero program
-
-To run and prove the example program `fibonacci.cairo`,
-install `cairo-lang` version 0.12.0 (see further instructions in the
-[cairo-lang repository](https://github.com/starkware-libs/cairo-lang/tree/v0.12.0)):
-
+Test case 2:
 ```bash
-pip install cairo-lang==0.12.0
-```
-
-Navigate to the example test directory (`e2e_test`):
-
-```bash
-cd e2e_test
-```
-
-Compile `fibonacci.cairo`:
-
-```bash
-cairo-compile fibonacci.cairo --output fibonacci_compiled.json --proof_mode
-```
-
-Run the compiled program to generate the prover input files:
-
-```bash
-cairo-run \
-    --program=fibonacci_compiled.json \
-    --layout=small \
-    --program_input=fibonacci_input.json \
-    --air_public_input=fibonacci_public_input.json \
-    --air_private_input=fibonacci_private_input.json \
-    --trace_file=fibonacci_trace.json \
-    --memory_file=fibonacci_memory.json \
-    --print_output \
-    --proof_mode
-```
-
-Run the prover:
-```bash
-cpu_air_prover \
-    --out_file=fibonacci_proof.json \
-    --private_input_file=fibonacci_private_input.json \
-    --public_input_file=fibonacci_public_input.json \
-    --prover_config_file=cpu_air_prover_config.json \
-    --parameter_file=cpu_air_params.json
-```
-
-The proof is now available in the file `fibonacci_proof.json`.
-
-Finally, run the verifier to verify the proof:
-```bash
-cpu_air_verifier --in_file=fibonacci_proof.json && echo "Successfully verified example proof."
-```
-
-**Note**: The verifier only checks that the proof is consistent with
-the public input section that appears in the proof file.
-The public input section itself is not checked.
-For example, the verifier does not check what CairoZero program is being proved,
-or that the builtins memory segments are of valid size.
-These things need to be checked externally.
-
-## Configuration for other input sizes
-
-The number of steps affects the size of the trace.
-Such changes may require modification of `cpu_air_params.json`.
-Specifically, the following equation must be satisfied.
-```
-log₂(last_layer_degree_bound) + ∑fri_step_list = log₂(#steps) + 4
-```
-For instance, assuming a fixed `last_layer_degree_bound`,
-a larger number of steps requires changes to the `fri_step_list`
-to maintain the equality.
-
-FRI steps should typically be in the range 2-4;
-the degree bound should be in the range 4-7.
-
-The constant 4 that appears in the equation is hardcoded `log₂(trace_rows_per_step) = log₂(16) = 4`.
-
-## For Mac users
-
-To build the docker, run:
-
-```bash
-docker build --tag prover . --build-arg CMAKE_ARGS=-DNO_AVX=1
-```
-
-To freely use the `cairo-run`, `cpu_air_prover`, and `cpu_air_verifier` commands,
-work inside the docker using:
-
-```bash
-docker run -it prover bash
+docker run --rm stone-prover ./src/starkware/main/cpu/fibonacci_air_prove_verify_2
 ```
