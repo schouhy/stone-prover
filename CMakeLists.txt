@@ -18,6 +18,9 @@ enable_testing()
 include_directories("${CMAKE_SOURCE_DIR}/src")
 include_directories("${CMAKE_BINARY_DIR}/src")
 
+include_directories("${CMAKE_SOURCE_DIR}/fibonacci_air_test_cases")
+include_directories("${CMAKE_BINARY_DIR}/fibonacci_air_test_cases")
+
 # Basic setup for gflags
 find_package(gflags REQUIRED)
 
@@ -57,6 +60,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_REGISTER_HINTS")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory(src)
+add_subdirectory(fibonacci_air_test_cases)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
