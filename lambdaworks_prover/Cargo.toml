@@ -1,0 +1,14 @@
+[package]
+name = "lambdaworks_prover"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "lambdaworks_prover"
+path = "src/main.rs"
+
+[features]
+
+[dependencies]
+lambdaworks-math = { git = "https://github.com/lambdaclass/lambdaworks", rev="255cd8650db0626e595afcd0ca6cc4069a07cc5a"}
+stark-platinum-prover = {git = "https://github.com/lambdaclass/lambdaworks", rev="255cd8650db0626e595afcd0ca6cc4069a07cc5a"}

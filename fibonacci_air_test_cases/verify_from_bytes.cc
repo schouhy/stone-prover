@@ -6,6 +6,11 @@
 #include "starkware/stark/test_utils.h"
 #include "starkware/stark/utils.h"
 
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <iterator>
+
 using namespace starkware;
 using StarkField252Element = PrimeFieldElement<252, 0>;
 using FibAirT = FibonacciAir<StarkField252Element>;
@@ -24,19 +29,19 @@ MakeTableProver(uint64_t n_segments, uint64_t n_rows_per_segment,
       n_segments, n_rows_per_segment, n_columns);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   const Field field(Field::Create<FieldElementT>());
 
   // AIR
-  uint64_t trace_length = 512;
-  uint64_t fibonacci_claim_index = 420;
-  StarkField252Element secret = StarkField252Element::FromUint(12345);
+  uint64_t trace_length = 4;
+  uint64_t fibonacci_claim_index = 3;
+  StarkField252Element secret = StarkField252Element::One();
   StarkField252Element claimed_fib =
       FibAirT::PublicInputFromPrivateInput(secret, fibonacci_claim_index);
   auto air = FibAirT(trace_length, fibonacci_claim_index, claimed_fib);
 
   // FRI configuration
-  const auto log_n_cosets = 6;
+  const auto log_n_cosets = 2;
   const size_t log_coset_size = Log2Ceil(trace_length);
   const FieldElementT fri_domain_offset = FieldElementT::FromUint(3);
   FftBasesImpl<FftMultiplicativeGroup<FieldElementT>> fft_bases = MakeFftBases(
@@ -44,7 +49,7 @@ int main() {
       /*start_offset=*/fri_domain_offset);
 
   size_t proof_of_work_bits = 0;
-  const std::vector<size_t> fri_step_list = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+  const std::vector<size_t> fri_step_list = {1, 1};
   size_t n_queries = 1;
   FriParameters fri_params{/*fri_step_list=*/fri_step_list,
                            /*last_layer_degree_bound=*/1,
@@ -52,7 +57,7 @@ int main() {
                            /*fft_bases=*/UseOwned(&fft_bases),
                            /*field=*/field,
                            /*proof_of_work_bits=*/proof_of_work_bits};
-  const Prng channel_prng = Prng(MakeByteArray<0xfa, 0xfa, 0xfa, 0xee>());
+  const Prng channel_prng = Prng(MakeByteArray<0xca, 0xfe, 0xca, 0xfe>());
   NoninteractiveProverChannel prover_channel =
       NoninteractiveProverChannel(channel_prng.Clone());
 
@@ -64,53 +69,31 @@ int main() {
       /*air=*/UseOwned(&air),
       /*fri_params=*/UseOwned(&fri_params));
 
-  StarkProverConfig stark_config = StarkProverConfig::InRam();
-  TableProverFactory table_prover_factory =
-      [&](uint64_t n_segments, uint64_t n_rows_per_segment, size_t n_columns) {
-        return MakeTableProver<Keccak256, StarkField252Element>(
-            n_segments, n_rows_per_segment, n_columns, &prover_channel,
-            stark_config.table_prover_n_tasks_per_segment,
-            stark_config.n_out_of_memory_merkle_layers, 0);
-      };
+  if (argc != 2) {
+      std::cerr << "Usage: " << argv[0] << " input_file" << std::endl;
+      return 1;
+  }
+  const char* inputFilename = argv[1];
 
-  // Prove
-  StarkProver stark_prover(UseOwned(&prover_channel),
-                           UseOwned(&table_prover_factory),
-                           UseOwned(&stark_params), UseOwned(&stark_config));
+  std::vector<std::byte> proof;
 
-  stark_prover.ProveStark(std::make_unique<FibTraceContextT>(
-      UseOwned(&air), secret, fibonacci_claim_index));
-  auto proof = prover_channel.GetProof();
-
-  // Print annotations to stdout
-  const std::optional<std::vector<std::string>> prover_annotations =
-      prover_channel.GetAnnotations();
-  if (prover_annotations.has_value()) {
-    auto vec = prover_annotations.value();
-    for (const std::string &str : vec) {
-      std::cout << str << std::endl;
-    }
+  std::ifstream inputFile(inputFilename, std::ios::binary);
+  if (!inputFile) {
+      std::cerr << "Error opening file: " << inputFilename << std::endl;
+      return 1;
   }
 
-    // // Create an array to hold the individual integers
-    // int integers[proof.size()];
-    //
-    // // Convert each std::byte to an unsigned char (0-255) and store in the array
-    // for (size_t i = 0; i < proof.size(); i++) {
-    //     unsigned char byteAsUnsignedChar = static_cast<unsigned char>(proof[i]);
-    //     integers[i] = static_cast<int>(byteAsUnsignedChar);
-    // }
-    //
-    // // Print the integers
-    // for (size_t i = 0; i < proof.size(); i++) {
-    //     std::cout << static_cast<int>(integers[i]) << ", ";
-    // }
+  inputFile.seekg(0, std::ios::end);
+  std::streampos fileSize = inputFile.tellg();
+  inputFile.seekg(0, std::ios::beg);
+
+  proof.resize(static_cast<size_t>(fileSize));
+  inputFile.read(reinterpret_cast<char*>(proof.data()), fileSize);
+  
+  inputFile.close();
 
   // Verify
   NoninteractiveVerifierChannel verifier_channel(channel_prng.Clone(), proof);
-  if (prover_annotations) {
-    verifier_channel.SetExpectedAnnotations(*prover_annotations);
-  }
 
   TableVerifierFactory table_verifier_factory =
       [&verifier_channel](const Field &field, uint64_t n_rows,
@@ -124,6 +107,7 @@ int main() {
 
   stark_verifier.VerifyStark();
 
+  std::cout << "Proof is valid!" << std::endl;
+
   return 0;
 }
-
