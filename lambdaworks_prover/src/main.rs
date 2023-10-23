@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{Result, Write};
+use std::io::Write;
 
 use stark_platinum_prover::examples::fibonacci_2_cols_shifted::{self, Fibonacci2ColsShifted};
 use stark_platinum_prover::fri::FieldElement;
