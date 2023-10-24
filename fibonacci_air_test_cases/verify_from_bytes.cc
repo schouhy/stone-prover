@@ -33,23 +33,23 @@ int main(int argc, char *argv[]) {
   const Field field(Field::Create<FieldElementT>());
 
   // AIR
-  uint64_t trace_length = 4;
-  uint64_t fibonacci_claim_index = 3;
+  uint64_t trace_length = 512;
+  uint64_t fibonacci_claim_index = 501;
   StarkField252Element secret = StarkField252Element::One();
   StarkField252Element claimed_fib =
       FibAirT::PublicInputFromPrivateInput(secret, fibonacci_claim_index);
   auto air = FibAirT(trace_length, fibonacci_claim_index, claimed_fib);
 
   // FRI configuration
-  const auto log_n_cosets = 2;
+  const auto log_n_cosets = 3;
   const size_t log_coset_size = Log2Ceil(trace_length);
   const FieldElementT fri_domain_offset = FieldElementT::FromUint(3);
   FftBasesImpl<FftMultiplicativeGroup<FieldElementT>> fft_bases = MakeFftBases(
       /*log_n=*/log_coset_size + log_n_cosets,
       /*start_offset=*/fri_domain_offset);
 
-  size_t proof_of_work_bits = 0;
-  const std::vector<size_t> fri_step_list = {1, 1};
+  size_t proof_of_work_bits = 9;
+  const std::vector<size_t> fri_step_list = {1, 1, 1, 1, 1, 1, 1, 1, 1};
   size_t n_queries = 1;
   FriParameters fri_params{/*fri_step_list=*/fri_step_list,
                            /*last_layer_degree_bound=*/1,
