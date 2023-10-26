@@ -10,5 +10,7 @@ path = "src/main.rs"
 [features]
 
 [dependencies]
-lambdaworks-math = { git = "https://github.com/lambdaclass/lambdaworks", rev="2cefa61eb50a26c5cd83a7f89f569673d0acea2b"}
-stark-platinum-prover = {git = "https://github.com/lambdaclass/lambdaworks", rev="2cefa61eb50a26c5cd83a7f89f569673d0acea2b"}
+lambdaworks-math = { git = "https://github.com/lambdaclass/lambdaworks", rev="e712f1dad0439"}
+stark-platinum-prover = {git = "https://github.com/lambdaclass/lambdaworks", rev="e712f1dad0439"}
+
+

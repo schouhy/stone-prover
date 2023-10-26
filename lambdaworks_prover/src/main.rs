@@ -14,11 +14,12 @@ fn main() {
 
     let claimed_index = 501;
     let claimed_value = trace.get_row(claimed_index)[0];
-    let mut proof_options = ProofOptions::default_test_options();
-    proof_options.blowup_factor = 8;
-    proof_options.coset_offset = 3;
-    proof_options.grinding_factor = 9;
-    proof_options.fri_number_of_queries = 1;
+    let proof_options = ProofOptions {
+        blowup_factor: 8,
+        coset_offset: 3,
+        grinding_factor: 20,
+        fri_number_of_queries: 200,
+    };
 
     let pub_inputs = fibonacci_2_cols_shifted::PublicInputs {
         claimed_value,

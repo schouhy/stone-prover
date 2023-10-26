@@ -48,9 +48,9 @@ int main(int argc, char *argv[]) {
       /*log_n=*/log_coset_size + log_n_cosets,
       /*start_offset=*/fri_domain_offset);
 
-  size_t proof_of_work_bits = 9;
+  size_t proof_of_work_bits = 20;
   const std::vector<size_t> fri_step_list = {1, 1, 1, 1, 1, 1, 1, 1, 1};
-  size_t n_queries = 1;
+  size_t n_queries = 200;
   FriParameters fri_params{/*fri_step_list=*/fri_step_list,
                            /*last_layer_degree_bound=*/1,
                            /*n_queries=*/n_queries,
