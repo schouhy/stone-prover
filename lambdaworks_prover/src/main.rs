@@ -26,7 +26,8 @@ fn main() {
         claimed_index,
     };
 
-    let transcript_init_seed = [0xca, 0xfe, 0xca, 0xfe];
+    let mut transcript_init_seed = claimed_index.to_be_bytes().to_vec();
+    transcript_init_seed.extend_from_slice(&claimed_value.serialize());
 
     let proof = Prover::prove::<Fibonacci2ColsShifted<_>>(
         &trace,
