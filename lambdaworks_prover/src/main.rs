@@ -37,7 +37,7 @@ fn main() {
         StoneProverTranscript::new(&transcript_init_seed),
     )
     .unwrap();
-    let serialized_proof = StoneCompatibleSerializer::serialize::<Fibonacci2ColsShifted<_>>(
+    let serialized_proof = StoneCompatibleSerializer::serialize_proof::<Fibonacci2ColsShifted<_>>(
         &proof,
         &pub_inputs,
         &proof_options,
