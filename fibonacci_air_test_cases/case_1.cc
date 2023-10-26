@@ -43,7 +43,7 @@ int main() {
       /*log_n=*/log_coset_size + log_n_cosets,
       /*start_offset=*/fri_domain_offset);
 
-  size_t proof_of_work_bits = 0;
+  size_t proof_of_work_bits = 1;
   const std::vector<size_t> fri_step_list = {1, 1};
   size_t n_queries = 1;
   FriParameters fri_params{/*fri_step_list=*/fri_step_list,
