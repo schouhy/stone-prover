@@ -4,8 +4,9 @@
 provide poly-logarithmic verification resources and proof size, with minimal and
 post-quantum-secure assumptions.
 
-This repository contains a prover and a verifier for STARKs, and in particular for the CPU AIR
-underlying the CairoZero programming language.
+This fork has been created by Lambdaclass to demostrate the compatibility of Stark Platinum with Stone. 
+
+We thank Starkware for creating and open sourcing Stone
 
 # Installation instructions
 
@@ -13,12 +14,6 @@ underlying the CairoZero programming language.
 
 The root directory contains a dedicated Dockerfile which automatically compiles everything.
 You should have docker installed (see https://docs.docker.com/get-docker/).
-
-Clone the fork:
-
-```bash
-git clone https://github.com/schouhy/stone-prover.git
-```
 
 Build the docker image:
 
