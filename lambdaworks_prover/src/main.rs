@@ -10,9 +10,15 @@ use stark_platinum_prover::transcript::StoneProverTranscript;
 
 use lambdaworks_math::traits::Serializable;
 
+/// Produces a proof of a Fibonacci execution and exports it as a binary file in a format compatible
+/// with Stone (FibonacciAir).
 fn main() {
-    let trace = fibonacci_2_cols_shifted::compute_trace(FieldElement::one(), 512);
+    // Execute Fibonacci program
+    let secret = FieldElement::one();
+    let trace_length = 512;
+    let trace = fibonacci_2_cols_shifted::compute_trace(secret, trace_length);
 
+    // Proof options
     let claimed_index = 501;
     let claimed_value = trace.get_row(claimed_index)[0];
     let proof_options = ProofOptions {
@@ -21,22 +27,21 @@ fn main() {
         grinding_factor: 20,
         fri_number_of_queries: 200,
     };
-
     let pub_inputs = fibonacci_2_cols_shifted::PublicInputs {
         claimed_value,
         claimed_index,
     };
 
-    let mut transcript_init_seed = claimed_index.to_be_bytes().to_vec();
-    transcript_init_seed.extend_from_slice(&claimed_value.serialize());
-
+    // Generate proof
     let proof = Prover::prove::<Fibonacci2ColsShifted<_>>(
         &trace,
         &pub_inputs,
         &proof_options,
-        StoneProverTranscript::new(&transcript_init_seed),
+        StoneProverTranscript::new(&pub_inputs.serialize()),
     )
     .unwrap();
+
+    // Export to bytes
     let serialized_proof = StoneCompatibleSerializer::serialize_proof::<Fibonacci2ColsShifted<_>>(
         &proof,
         &pub_inputs,
