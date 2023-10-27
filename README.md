@@ -4,8 +4,9 @@
 provide poly-logarithmic verification resources and proof size, with minimal and
 post-quantum-secure assumptions.
 
-This repository contains a prover and a verifier for STARKs, and in particular for the CPU AIR
-underlying the CairoZero programming language.
+This fork has been created by Lambdaclass to show Stark Platinum compatibility with Stone.
+
+We thank Starkware for creating and open sourcing Stone.
 
 # Installation instructions
 
@@ -13,12 +14,6 @@ underlying the CairoZero programming language.
 
 The root directory contains a dedicated Dockerfile which automatically compiles everything.
 You should have docker installed (see https://docs.docker.com/get-docker/).
-
-Clone the fork:
-
-```bash
-git clone https://github.com/schouhy/stone-prover.git
-```
 
 Build the docker image:
 
@@ -42,7 +37,7 @@ Test case 2 (output [here](fibonacci_air_test_cases/case_2_output.txt)):
 docker run --rm stone-prover-test-cases ./case_2
 ```
 
-Prove with Lambdaworks and verify with Stone for case 1:
+Prove with Lambdaworks and verify with Stone:
 ```bash
 docker run --rm stone-prover-test-cases bash /app/prove_lambdaworks_verify_stone.sh
 ```
