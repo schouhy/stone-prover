@@ -1,3 +1,5 @@
+# This script must be run inside the docker container.
+
 # Prove a Fibonacci example using Lambdaworks. This produces a file `lambdaworks_proof.bin`
 # containing the proof in the format expected by Stone.
 /app/lambdaworks_prover/target/release/lambdaworks_prover
