@@ -4,9 +4,9 @@
 provide poly-logarithmic verification resources and proof size, with minimal and
 post-quantum-secure assumptions.
 
-This fork has been created by Lambdaclass to demostrate the compatibility of Stark Platinum with Stone. 
+This fork has been created by Lambdaclass to show Stark Platinum compatibility with Stone.
 
-We thank Starkware for creating and open sourcing Stone
+We thank Starkware for creating and open sourcing Stone.
 
 # Installation instructions
 
